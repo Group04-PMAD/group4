@@ -9,8 +9,15 @@
     <changeSet id="010-instruments-jsonb-metadata" author="trainer">
 
         <preConditions onFail="MARK_RAN">
-            <dbms type="postgresql"/>
-        </preConditions>
+    <and>
+        <dbms type="postgresql"/>
+        <not>
+            <columnExists
+                tableName="instruments"
+                columnName="metadata"/>
+        </not>
+    </and>
+</preConditions>
 
         <sql><![CDATA[
             ALTER TABLE instruments

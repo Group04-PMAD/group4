@@ -10,8 +10,13 @@
     <changeSet id="011-mv-daily-recon-summary" author="student">
 
         <preConditions onFail="MARK_RAN">
-            <dbms type="postgresql"/>
-        </preConditions>
+    <and>
+        <dbms type="postgresql"/>
+        <not>
+            <tableExists tableName="mv_daily_recon_summary"/>
+        </not>
+    </and>
+</preConditions>
 
         <sql splitStatements="false"><![CDATA[
 
