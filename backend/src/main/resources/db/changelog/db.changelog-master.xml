@@ -34,5 +34,8 @@
 <!-- ADV008 -->
 <include file="changes/011-mv-daily-recon-summary.xml" relativeToChangelogFile="true"/>
 
+<include file="changes/012-release-tags.xml"
+         relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>
