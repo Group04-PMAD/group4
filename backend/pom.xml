@@ -41,6 +41,12 @@
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>8.0</version>
             </dependency>
-        </dependencies>
+        
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-envers</artifactId>
+        </dependency>
+
+    </dependencies>
     </dependencyManagement>
 </project>
