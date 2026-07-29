@@ -25,5 +25,17 @@
     <include file="changes/006-audit-and-recon.xml" relativeToChangelogFile="true"/>
     <include file="changes/007-users-rbac.xml"    relativeToChangelogFile="true"/>
     <include file="changes/008-seed.xml"          relativeToChangelogFile="true"/>
+    
+    
+
+<!-- ADV009 -->
+<include file="changes/010-instruments-jsonb-metadata.xml" relativeToChangelogFile="true"/>
+
+<!-- ADV008 -->
+<include file="changes/011-mv-daily-recon-summary.xml" relativeToChangelogFile="true"/>
+
+<include file="changes/012-release-tags.xml"
+         relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>
