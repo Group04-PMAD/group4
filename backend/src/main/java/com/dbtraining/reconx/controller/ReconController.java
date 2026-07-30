@@ -58,9 +58,15 @@ public class ReconController {
     @Operation(summary = "Mark a recon break as RESOLVED with a note")
     public ResponseEntity<ReconBreak> resolve(@PathVariable Long id,
                                               @RequestBody Map<String, String> body) {
-        // TODO(TICKET-ADV070): load the ReconBreak, call rb.resolve(note), save,
-        //   and return 200 with the updated entity. Throw TradeNotFoundException
-        //   when the id is unknown.
-        throw new UnsupportedOperationException("TICKET-ADV070");
+        
+        // Find the break, or throw a 404 (TradeNotFoundException is mapped to 404)
+        ReconBreak rb = breaks.findById(id)
+                .orElseThrow(() -> new TradeNotFoundException("recon_break " + id));
+        
+        // Call the domain method that updates status, timestamp, and note atomically
+        rb.resolve(body.getOrDefault("note", "manually resolved"));
+        
+        // Save and return the updated break
+        return ResponseEntity.ok(breaks.save(rb));
     }
 }
