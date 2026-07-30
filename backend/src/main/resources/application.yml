@@ -2,3 +2,10 @@ server:
   port: 8080
   servlet:
     context-path: /api
+
+spring:
+  # TICKET-ADV081-TICKET-ADV082 — Caffeine cache config; per-cache spec overrides the global one.
+  cache:
+    cache-names: instruments,counterparties
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=5m
