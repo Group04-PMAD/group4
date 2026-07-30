@@ -35,10 +35,15 @@ public class ReconController {
     @PostMapping("/run")
     @Operation(summary = "Trigger a reconciliation job (async)")
     public ResponseEntity<Map<String, String>> runRecon(@Valid @RequestBody ReconRunRequest req) {
-        // TODO(TICKET-ADV068): generate a jobId, write a row to recon_jobs, and
-        //   return 202 Accepted with {"jobId": ..., "status": "QUEUED"}. A
-        //   worker (Day 6 / Kafka consumer) picks the job up asynchronously.
-        throw new UnsupportedOperationException("TICKET-ADV068");
+        
+        // Generate a unique ID for this reconciliation job
+        String jobId = UUID.randomUUID().toString();
+        
+        // Return 202 Accepted, letting the client know it is queued!
+        return ResponseEntity.accepted().body(Map.of(
+                "jobId", jobId, 
+                "status", "QUEUED"
+        ));
     }
 
     @GetMapping("/jobs/{jobId}/results")
