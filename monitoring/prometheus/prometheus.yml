@@ -5,3 +5,5 @@ prometheus:
     - "9090:9090"
   volumes:
     - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  rule_files:
+  - "alerts.yml"
