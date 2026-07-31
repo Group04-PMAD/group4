@@ -10,7 +10,54 @@ spring:
     caffeine:
       spec: maximumSize=500,expireAfterWrite=5m
 
+spring:
+  jmx:
+    enabled: true
+
+
+spring:
+  application:
+    name: reconx-api
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+  # ADV012 — Liquibase owns the schema. The classpath: prefix is mandatory
+  # (without it the changelog is silently skipped in a packaged JAR).
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+  sql:
+    init:
+      mode: never                         # Liquibase manages schema + seed, not data.sql
+
+  jpa:
+    open-in-view: false                   # default true — turn off in services
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+        format_sql: true
+
+  # TICKET-ADV081/TICKET-ADV082 — Caffeine cache config; per-cache spec overrides the global one.
+  cache:
+    cache-names: instruments,counterparties
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=5m
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
   metrics:
     distribution:
       percentiles-histogram:
@@ -18,3 +65,11 @@ management:
         reconciliation.duration: true
       percentiles:
         http.server.requests: 0.5, 0.95, 0.99
+
+
+reconx:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:dev-secret-change-me-32-bytes-min!!}
+      expiration-minutes: ${JWT_EXP_MIN:60}
+      issuer: reconx
