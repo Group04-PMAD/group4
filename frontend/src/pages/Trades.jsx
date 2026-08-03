@@ -1,5 +1,5 @@
 // Compound DataTable + useDebouncedSearch driving a paginated trades list.
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { withAuth } from '@components/withAuth.jsx';
 import DataTable from '@components/DataTable.jsx';
 import TradeRow from '@components/TradeRow.jsx';
@@ -11,6 +11,11 @@ function Trades() {
   const debounced = useDebouncedSearch(search, 300);
   const [page, setPage] = useState(0);
   const [data, setData] = useState({ items: [], totalPages: 0 });
+  const [selectedTrade, setSelectedTrade] = useState(null);
+
+  const handleSelect = useCallback((trade) => {
+    setSelectedTrade(trade);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -78,7 +83,7 @@ function Trades() {
 
         <DataTable.Body
           rows={data.items}
-          render={(trade) => <TradeRow trade={trade} />}
+          render={(trade) => <TradeRow trade={trade} onClick={handleSelect} />}
         />
 
         <DataTable.Pagination
