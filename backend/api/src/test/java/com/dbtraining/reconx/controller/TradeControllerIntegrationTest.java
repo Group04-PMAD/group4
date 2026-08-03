@@ -14,7 +14,12 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = {
+                "reconx.security.jwt.secret=test-secret-key-test-secret-key-test-secret"
+        }
+)
 class TradeControllerIntegrationTest {
 
     @Autowired

@@ -16,3 +16,7 @@ logging:
   level:
     com.dbtraining.reconx: DEBUG
     org.hibernate.SQL: DEBUG
+reconx:
+  security:
+    jwt:
+      secret: test-secret-key-for-local-development-123456789012345
