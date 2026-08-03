@@ -11,4 +11,31 @@
 
     <artifactId>reconx-service</artifactId>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>com.dbtraining.reconx</groupId>
+            <artifactId>reconx-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dbtraining.reconx</groupId>
+            <artifactId>reconx-repository</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dbtraining.reconx</groupId>
+            <artifactId>reconx-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+    </dependencies>
+
 </project>

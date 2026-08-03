@@ -24,10 +24,10 @@ public interface TradeRepository
           AND (:counterpartyId IS NULL OR t.counterparty.id = :counterpartyId)
         """)
     Page<Trade> findByFilters(
-            @Param("from") LocalDate from,
-            @Param("to") LocalDate to,
-            @Param("status") TradeStatus status,
-            @Param("counterpartyId") Long counterpartyId,
-            Pageable pageable
+        @Param("from")           LocalDate from,
+        @Param("to")             LocalDate to,
+        @Param("status")         TradeStatus status,
+        @Param("counterpartyId") Long counterpartyId,
+        Pageable pageable
     );
 }
