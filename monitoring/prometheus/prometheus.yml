@@ -1,9 +1,18 @@
-prometheus:
-  image: prom/prometheus:v2.54.1
-  container_name: reconx-prometheus
-  ports:
-    - "9090:9090"
-  volumes:
-    - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-  rule_files:
+# TICKET-ADV149 — Prometheus scrape config
+global:
+  scrape_interval: 10s
+  evaluation_interval: 10s
+
+rule_files:
   - "alerts.yml"
+
+scrape_configs:
+
+  - job_name: 'reconx-backend'
+    metrics_path: '/api/actuator/prometheus'
+    static_configs:
+      - targets: ['backend:8080']
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
